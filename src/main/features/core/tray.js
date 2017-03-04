@@ -31,7 +31,13 @@ function getAppIconFileName() {
 
 const getTrackString = (track) => {
   let title = track.title;
-  const artist = track.artist;
+  let artist = track.artist;
+
+  // fix display of ampersands on windows
+  if (process.platform === 'win32') {
+    title = title.replace('&', '&&');
+    artist = artist.replace('&', '&&');
+  }
 
   if (title.length + artist.length > 40) {
     title = `${title.substring(0, 40 - (artist.length + 6))}...`;
